@@ -9,6 +9,17 @@ Read about the progress and learnings at <a href="https://yippy.mattdavo.com/blo
 
 Find all releases at <a href="https://yippy.mattdavo.com/releases" target="_blank">yippy.mattdavo.com/releases</a>
 
+## About this fork
+This is a fork of [mattDavo/Yippy](https://github.com/mattDavo/Yippy), built from source to keep the app running after upgrading to **macOS 27 / Xcode 27**, where the upstream build (last released as an x86_64 dev build from 2021) no longer ran.
+
+Changes made in this fork:
+- Bumped `MACOSX_DEPLOYMENT_TARGET` to 12.0 — Xcode 27's SDK dropped support for the project's old 10.9–10.14 targets.
+- Fixed a compile error in the `LoginServiceKit` pod caused by `LSSharedFileListCopySnapshot` now returning an optional in the macOS 27 SDK.
+- Added explicit `import CoreGraphics` / `import ApplicationServices` where symbols (`CGKeyCode`, `AXIsProcessTrusted`, etc.) used to be pulled in transitively and no longer are.
+- **Dropped x86_64/Intel support — this fork builds Apple Silicon (arm64) only.** The `ARCHS`/`VALID_ARCHS`/`EXCLUDED_ARCHS` build settings (project-level and in the `Podfile` `post_install` hook) are pinned to `arm64`. If you need to run on an Intel Mac, use [upstream](https://github.com/mattDavo/Yippy) instead.
+
+Everything below is the original upstream documentation.
+
 ## Installation
 Downloaded from <a href="https://yippy.mattdavo.com" target="_blank">yippy.mattdavo.com</a> or install with [Homebrew Cask](https://github.com/Homebrew/homebrew-cask):
 ```
@@ -16,6 +27,8 @@ brew install --cask yippy
 ```
 
 For help with installation see: <a href="https://yippy.mattdavo.com/installation" target="_blank">yippy.mattdavo.com/installation</a>.
+
+> Note: the Homebrew Cask and links above point to the upstream project's releases, not this fork. This fork isn't published anywhere — build it yourself from source (see below).
 
 ## Developing Yippy
 ### Contributions
