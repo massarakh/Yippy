@@ -42,3 +42,14 @@ target 'Yippy' do
         pod 'RxCocoa', '~> 5'
     end
 end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '12.0'
+            config.build_settings['ARCHS'] = 'arm64'
+            config.build_settings['EXCLUDED_ARCHS'] = 'x86_64'
+            config.build_settings['VALID_ARCHS'] = 'arm64'
+        end
+    end
+end
