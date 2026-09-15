@@ -18,6 +18,8 @@ Changes made in this fork:
 - Added explicit `import CoreGraphics` / `import ApplicationServices` where symbols (`CGKeyCode`, `AXIsProcessTrusted`, etc.) used to be pulled in transitively and no longer are.
 - **Dropped x86_64/Intel support — this fork builds Apple Silicon (arm64) only.** The `ARCHS`/`VALID_ARCHS`/`EXCLUDED_ARCHS` build settings (project-level and in the `Podfile` `post_install` hook) are pinned to `arm64`. If you need to run on an Intel Mac, use [upstream](https://github.com/mattDavo/Yippy) instead.
 
+**This fork has no releases or Homebrew Cask of its own** — it isn't published anywhere. `brew install --cask yippy` and the links/downloads below all point to the **upstream** project's official (Intel) build, not this fork. To get this fork's arm64 build, clone this repo and build it yourself in Xcode (see "Developing Yippy" below).
+
 Everything below is the original upstream documentation.
 
 ## Installation
@@ -27,8 +29,6 @@ brew install --cask yippy
 ```
 
 For help with installation see: <a href="https://yippy.mattdavo.com/installation" target="_blank">yippy.mattdavo.com/installation</a>.
-
-> Note: the Homebrew Cask and links above point to the upstream project's releases, not this fork. This fork isn't published anywhere — build it yourself from source (see below).
 
 ## Developing Yippy
 ### Contributions
