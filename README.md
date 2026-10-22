@@ -42,6 +42,24 @@ There are 3 different schemes:
 
 __Yippy__ is used for running and archiving a production build of Yippy. __Yippy Beta__ is used for development and archiving a beta release. __Yippy XCTest__ is used exclusively for running the unit and UI tests.
 
+### Building and installing this fork locally
+```
+LANG=en_US.UTF-8 pod install
+xcodebuild -workspace Yippy.xcworkspace -scheme Yippy -configuration Release \
+  -derivedDataPath build CODE_SIGNING_ALLOWED=NO
+cp -R build/Build/Products/Release/Yippy.app /Applications/
+```
+
+Then sign the installed app with a **stable** identity (find yours with `security find-identity -v -p codesigning`):
+```
+codesign --force --deep -s "Apple Development: you@example.com (TEAMID)" /Applications/Yippy.app
+```
+
+Do not use ad-hoc signing (`-s -`). An ad-hoc signature changes with every build, so macOS drops the Accessibility permission and pressing Enter in the history window stops pasting (the synthetic Cmd+V is denied). If that happens, reset the stale grant and allow Yippy again under System Settings > Privacy & Security > Accessibility:
+```
+tccutil reset All MatthewDavidson.Yippy
+```
+
 ### Using `create-installer.sh`
 First install <a href="https://github.com/andreyvit/create-dmg" target="_blank">create-dmg</a>. Then place `X.app` in the same folder as `create-installer.sh`. Execute script:
 ```
